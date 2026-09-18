@@ -15,7 +15,7 @@ import json
 
 if __name__ == '__main__':
     #%%
-    jtext_file_repo = FileRepo("..//..//file_repo//jtext//$shot_2$00//")
+    jtext_file_repo = FileRepo("/mypool/J-TEXT/$shot_2$00/")
     file_path_shots = '../../file_repo/shot_info/v1/shot_info.json'
     file_path_tags = '../../file_repo/shot_info/v1/target_tags.json'
     # load shots and tags
