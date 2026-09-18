@@ -28,8 +28,8 @@ if __name__ == '__main__':
     tags_array_ne = find_tags('\\polaris_den', tag_list)
     tags_array_ma_tor = find_tags('\\MA_TOR1', tag_list)
     tags_array_exsad = find_tags('\\exsad', tag_list)
-    tags_array_ma_polA = find_tags('\\MA_POLA', tag_list)
-    tags_array_ma_polB = find_tags('\\MA_POLB', tag_list)
+    # tags_array_ma_polA = find_tags('\\MA_POLA', tag_list)
+    # tags_array_ma_polB = find_tags('\\MA_POLB', tag_list)
     basic_tags = [  "\\ip",  "\\bt",  "\\dx"]
 
     #%%
@@ -41,8 +41,8 @@ if __name__ == '__main__':
     data_cal['\\polaris_den'] = np.empty(0)
     data_cal['\\MA_TOR1'] = np.empty(0)
     data_cal['\\exsad'] = np.empty(0)
-    data_cal['\\MA_POLA'] = np.empty(0)
-    data_cal['\\MA_POLB'] = np.empty(0)
+    # data_cal['\\MA_POLA'] = np.empty(0)
+    # data_cal['\\MA_POLB'] = np.empty(0)
     for tag in basic_tags:
         data_cal[tag] = np.empty(0)
 
@@ -69,14 +69,14 @@ if __name__ == '__main__':
         exsad_array_data = jtext_file_repo.read_data(shot, tags_array_exsad)
         for tag in tags_array_exsad:
             data_cal['\\exsad'] = np.concatenate((data_cal['\\exsad'], exsad_array_data[tag]))
-        # ma_polA array calculate
-        ma_polA_array_data = jtext_file_repo.read_data(shot, tags_array_ma_polA)
-        for tag in tags_array_ma_polA:
-            data_cal['\\MA_POLA'] = np.concatenate((data_cal['\\MA_POLA'], ma_polA_array_data[tag]))
-        # ma_polB array calculate
-        ma_polB_array_data = jtext_file_repo.read_data(shot, tags_array_ma_polB)
-        for tag in tags_array_ma_polB:
-            data_cal['\\MA_POLB'] = np.concatenate((data_cal['\\MA_POLB'], ma_polB_array_data[tag]))
+        # # ma_polA array calculate
+        # ma_polA_array_data = jtext_file_repo.read_data(shot, tags_array_ma_polA)
+        # for tag in tags_array_ma_polA:
+        #     data_cal['\\MA_POLA'] = np.concatenate((data_cal['\\MA_POLA'], ma_polA_array_data[tag]))
+        # # ma_polB array calculate
+        # ma_polB_array_data = jtext_file_repo.read_data(shot, tags_array_ma_polB)
+        # for tag in tags_array_ma_polB:
+        #     data_cal['\\MA_POLB'] = np.concatenate((data_cal['\\MA_POLB'], ma_polB_array_data[tag]))
 
         # basic calculate
         basic_data = jtext_file_repo.read_data(shot, basic_tags)
@@ -99,12 +99,12 @@ if __name__ == '__main__':
     exsad_scaler = StandardScaler()
     exsad_scaler.fit(data_cal['\\exsad'].reshape(-1, 1))
     normalization_dic['\\exsad'] = [exsad_scaler.mean_.tolist(), np.sqrt(exsad_scaler.var_).tolist()]
-    ma_polA_scaler = StandardScaler()
-    ma_polA_scaler.fit(data_cal['\\MA_POLA'].reshape(-1, 1))
-    normalization_dic['\\MA_POLA'] = [ma_polA_scaler.mean_.tolist(), np.sqrt(ma_polA_scaler.var_).tolist()]
-    ma_polB_scaler = StandardScaler()
-    ma_polB_scaler.fit(data_cal['\\MA_POLB'].reshape(-1, 1))
-    normalization_dic['\\MA_POLB'] = [ma_polB_scaler.mean_.tolist(), np.sqrt(ma_polB_scaler.var_).tolist()]
+    # ma_polA_scaler = StandardScaler()
+    # ma_polA_scaler.fit(data_cal['\\MA_POLA'].reshape(-1, 1))
+    # normalization_dic['\\MA_POLA'] = [ma_polA_scaler.mean_.tolist(), np.sqrt(ma_polA_scaler.var_).tolist()]
+    # ma_polB_scaler = StandardScaler()
+    # ma_polB_scaler.fit(data_cal['\\MA_POLB'].reshape(-1, 1))
+    # normalization_dic['\\MA_POLB'] = [ma_polB_scaler.mean_.tolist(), np.sqrt(ma_polB_scaler.var_).tolist()]
     for tag in basic_tags:
         scaler = StandardScaler()
         scaler.fit(data_cal[tag].reshape(-1, 1))
