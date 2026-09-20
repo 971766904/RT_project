@@ -45,7 +45,7 @@ def concat_dataset_from_directory(directory: str):
     Returns:
          tf.data.Dataset: concatenated datasets
     """
-    list_dataset = tfio.IODataset.list_files(str(directory + '/*/*.hdf5'))
+    list_dataset = tfio.IODataset.list_files(str(directory + '/*.hdf5'))
     file_path_0 = list_dataset.take(1).as_numpy_iterator().next()
     dataset = make_dataset_from_generator(file_path_0)
     for sub in list_dataset.take(-1):
