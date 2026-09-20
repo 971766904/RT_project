@@ -31,7 +31,7 @@ def make_dataset_from_generator(file_path: str):
     """
     dataset = tf.data.Dataset.from_generator(lambda: make_generator_from_directory(file_path),
                                              output_types=({"input_1": tf.float32, "input_2": tf.float32}, tf.int32),
-                                             output_shapes=({"input_1": tf.TensorShape([10,100]),
+                                             output_shapes=({"input_1": tf.TensorShape([100,10]),
                                                              "input_2": tf.TensorShape([4])}, ()))
     return dataset
 
