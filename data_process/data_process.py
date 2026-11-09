@@ -57,9 +57,9 @@ if __name__ == '__main__':
     raw_shotset = ShotSet(raw_file_repo, shot_list)
 
     # %%
-    # 1.reserve target tags only
-    processed_shotset = raw_shotset.remove_signal(tags=tag_list, keep=True,
-                                                     save_repo=process_file_repo)
+    # # 1.reserve target tags only
+    # processed_shotset = raw_shotset.remove_signal(tags=tag_list, keep=True,
+    #                                                  save_repo=process_file_repo)
     # save the shots
     np.save('../../file_repo/shot_info/v1/train_shots.npy',train_shots)
     np.save('../../file_repo/shot_info/v1/test_shots.npy',test_shots)
