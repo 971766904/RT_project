@@ -1,0 +1,18 @@
+{
+	"tags": {
+		"basic": ["ip", "bt", "dx", "dy"],
+		"10k": ["polaris_den_v09", "sxr_cb_024"],
+		"50k": ["MA_TOR1_P01", "MA_TOR1_P02", "MA_POL_CA01", "MA_POL_CA02", "MA_POL_CA12", "MA_POL_CA13"],
+		"sxr": [
+			"sxr_cb_30", "sxr_cb_29", "sxr_cb_28", "sxr_cb_27", "sxr_cb_25",
+			"sxr_cb_24", "sxr_cb_22", "sxr_cb_21", "sxr_cb_19", "sxr_cb_17",
+			"sxr_cb_15", "sxr_cb_13", "sxr_cb_11", "sxr_cb_10", "sxr_cb_08",
+			"sxr_cb_07", "sxr_cb_05", "sxr_cb_04", "sxr_cb_03", "sxr_cb_02"
+		],
+		"axuv": [
+			"AXUV_CB_30", "AXUV_CB_29", "AXUV_CB_28", "AXUV_CB_27",
+	        "AXUV_CB_25", "AXUV_CB_23", "AXUV_CB_21", "AXUV_CB_19"
+		],
+		"label": ["qa", "ne_nG"]
+	}
+}

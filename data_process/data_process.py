@@ -13,6 +13,7 @@ from jddb.processor.basic_processors import ResamplingProcessor, NormalizationPr
 from util.basic_processor import find_tags, read_config, StackProcessor, CutProcessor, BinaryLabelProcessor
 from sklearn.model_selection import train_test_split
 import json
+import numpy as np
 
 if __name__ == '__main__':
     #%%
@@ -59,5 +60,12 @@ if __name__ == '__main__':
     # 1.reserve target tags only
     processed_shotset = raw_shotset.remove_signal(tags=tag_list, keep=True,
                                                      save_repo=process_file_repo)
+    # save the shots
+    np.save('../../file_repo/shot_info/v1/train_shots.npy',train_shots)
+    np.save('../../file_repo/shot_info/v1/test_shots.npy',test_shots)
+    np.save('../../file_repo/shot_info/v1/val_shots.npy',val_shots)
+
+
+
 
 
