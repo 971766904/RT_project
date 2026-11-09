@@ -23,9 +23,9 @@ if __name__ == '__main__':
     train_shots = np.load('../../file_repo/shot_info/v1/train_shots.npy', allow_pickle=True)
     val_shots = np.load('../../file_repo/shot_info/v1/test_shots.npy', allow_pickle=True)
     test_shots = np.load('../../file_repo/shot_info/v1/val_shots.npy', allow_pickle=True)
-    train_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/{device}/train')
-    test_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/{device}/test')
-    val_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/{device}/val')
+    train_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/train')
+    test_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/test')
+    val_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/val')
 
     repo_dict = {
         'jtext': FileRepo(r'/mypool/DANN/data/xfm/jtext/raw')
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_50k], output_tags=[tags_50k])
         print("slicing 50k")
         shot_set = shot_set.process(SliceProcessor(100, 0.5), input_tags=tags_50k, output_tags=tags_50k,
-                                    save_repo=FileRepo(f'/mypool/DANN/data/xfm/{device}/sliced'))
+                                    save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced'))
         print("re clipping")
         shot_set = shot_set.process(ClipProcessor(start_time+0.01), input_tags=all_tags, output_tags=all_tags).\
             process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags])
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr']).remove_signal(tags['sxr'])
         print('labelling (classification)')
         shot_set = shot_set.process(ClassificationLabelProcessor(pre_time=pre_time, vague_time=vague_time), shot_filter=shot_filter,
-                                    input_tags=['basic'], output_tags=['label_1'], save_repo=FileRepo(f'/mypool/DANN/data/xfm/{device}/labelled'))
+                                    input_tags=['basic'], output_tags=['label_1'], save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/labelled'))
 
         train_set = shot_set.remove_signal(tags=[all_tags], keep=True, shot_filter=train_shots,
                                                     save_repo=train_file)
