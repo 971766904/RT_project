@@ -20,9 +20,9 @@ warnings.filterwarnings("ignore")
 if __name__ == '__main__':
     #%%
     # load shots
-    train_shots = np.load('../../file_repo/shot_info/v1/train_shots.npy', allow_pickle=True)
-    val_shots = np.load('../../file_repo/shot_info/v1/test_shots.npy', allow_pickle=True)
-    test_shots = np.load('../../file_repo/shot_info/v1/val_shots.npy', allow_pickle=True)
+    train_shots = np.load('../../file_repo/shot_info/v1/train_shots.npy', allow_pickle=True).tolist()
+    val_shots = np.load('../../file_repo/shot_info/v1/test_shots.npy', allow_pickle=True).tolist()
+    test_shots = np.load('../../file_repo/shot_info/v1/val_shots.npy', allow_pickle=True).tolist()
     train_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/train')
     test_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/test')
     val_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/val')
@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
         with open(f'./config/{device}_config.json', 'r', encoding='utf-8') as f:
             config = json.load(f)
-        shot_filter = np.load(f'./{device}.npy', allow_pickle=True).tolist()
+        shot_filter = train_shots + val_shots + test_shots
 
         tags = config['tags']
         tags_1k = tags['basic'] + tags['sxr'] + tags['axuv']
