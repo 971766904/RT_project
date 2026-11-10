@@ -85,7 +85,7 @@ if __name__ == '__main__':
         print("stacking sxr")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr']).remove_signal(tags['sxr'])
         print('labelling (classification)')
-        shot_set = shot_set.process(ClassificationLabelProcessor(pre_time=pre_time, vague_time=vague_time), shot_filter=shot_filter,
+        shot_set = shot_set.process(ClassificationLabelProcessor(pre_time=pre_time, vague_time=vague_time),
                                     input_tags=['basic'], output_tags=['label_1'], save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/labelled'))
         print('save as train, test, val')
 
