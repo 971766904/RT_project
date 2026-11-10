@@ -15,6 +15,7 @@ from processor import *
 import json
 from sklearn.model_selection import train_test_split
 import warnings
+from util.basic_processor import find_tags, read_config, StackProcessor, CutProcessor, BinaryLabelProcessor
 warnings.filterwarnings("ignore")
 
 if __name__ == '__main__':
@@ -84,16 +85,52 @@ if __name__ == '__main__':
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['axuv']], output_tags=['axuv']).remove_signal(tags['axuv'])
         print("stacking sxr")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr']).remove_signal(tags['sxr'])
+        print("cut for undis phase of dis shot")
+        train_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
+                                     input_tags=['basic'],
+                                     output_tags=['basic'],
+                                     shot_filter=train_shots,
+                                     save_repo=train_file,
+                                     )
+        test_set = shot_set.process(CutProcessor(pre_time=20, is_test=True),
+                                     input_tags=['basic'],
+                                     output_tags=['basic'],
+                                     shot_filter=test_shots,
+                                     save_repo=test_file,
+                                     )
+        val_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
+                                     input_tags=['basic'],
+                                     output_tags=['basic'],
+                                     shot_filter=val_shots,
+                                     save_repo=val_file,
+                                     )
         print('labelling (classification)')
-        shot_set = shot_set.process(ClassificationLabelProcessor(pre_time=pre_time, vague_time=vague_time),
-                                    input_tags=['basic'], output_tags=['label_1'], save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/labelled'))
+        train_set = train_set.process(processor=BinaryLabelProcessor(is_test=False),
+                                              input_tags=['basic'],
+                                              output_tags=['label'],
+                                              shot_filter=train_shots,
+                                              save_repo=train_file,
+                                              processes=10)
+        val_set = val_set.process(processor=BinaryLabelProcessor(is_test=False),
+                                          input_tags=['basic'],
+                                          output_tags=['label'],
+                                          shot_filter=val_shots,
+                                          save_repo=val_file,
+                                          processes=10)
+        test_set = test_set.process(processor=BinaryLabelProcessor(is_test=True),
+                                            input_tags=['basic'],
+                                            output_tags=['label'],
+                                            shot_filter=test_shots,
+                                            save_repo=test_file,
+                                            processes=10)
+
         print('save as train, test, val')
 
-        train_set = shot_set.remove_signal(tags=all_tags, keep=True, shot_filter=train_shots,
+        train_set = train_set.remove_signal(tags=all_tags, keep=True, shot_filter=train_shots,
                                                     save_repo=train_file)
-        test_set = shot_set.remove_signal(tags=all_tags, keep=True, shot_filter=test_shots,
+        test_set = test_set.remove_signal(tags=all_tags, keep=True, shot_filter=test_shots,
                                            save_repo=test_file)
-        val_set = shot_set.remove_signal(tags=all_tags, keep=True, shot_filter=val_shots,
+        val_set = val_set.remove_signal(tags=all_tags, keep=True, shot_filter=val_shots,
                                            save_repo=val_file)
 
 
