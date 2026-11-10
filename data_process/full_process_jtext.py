@@ -50,7 +50,7 @@ if __name__ == '__main__':
         print("clipping")
         shot_set = shot_set.process(ClipProcessor(start_time, end_time_label='DownTime'), input_tags=all_tags, output_tags=all_tags,
                                     shot_filter=shot_filter, save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/trimmed'))
-        shot_set = shot_set.remove_signal(all_tags, keep=True)
+        shot_set = shot_set.remove_signal(all_tags, keep=True,shot_filter=shot_filter)
         print("trimming 1k")
         shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_1k], output_tags=[tags_1k])
         print('trimming 50k')
@@ -71,11 +71,11 @@ if __name__ == '__main__':
         shot_set = shot_set.process(ClassificationLabelProcessor(pre_time=pre_time, vague_time=vague_time), shot_filter=shot_filter,
                                     input_tags=['basic'], output_tags=['label_1'], save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/labelled'))
 
-        train_set = shot_set.remove_signal(tags=[all_tags], keep=True, shot_filter=train_shots,
+        train_set = shot_set.remove_signal(tags=all_tags, keep=True, shot_filter=train_shots,
                                                     save_repo=train_file)
-        test_set = shot_set.remove_signal(tags=[all_tags], keep=True, shot_filter=test_shots,
+        test_set = shot_set.remove_signal(tags=all_tags, keep=True, shot_filter=test_shots,
                                            save_repo=test_file)
-        val_set = shot_set.remove_signal(tags=[all_tags], keep=True, shot_filter=val_shots,
+        val_set = shot_set.remove_signal(tags=all_tags, keep=True, shot_filter=val_shots,
                                            save_repo=val_file)
 
 
