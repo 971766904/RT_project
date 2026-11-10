@@ -46,6 +46,11 @@ if __name__ == '__main__':
         all_tags = tags_1k + tags_50k
 
         shot_set = ShotSet(file_repo)
+        # temp test
+        shots_in_set = shot_set.shot_list
+        missed_shots = [shot for shot in shot_filter if shot not in shots_in_set]
+        print('missed shots:{}'.format(len(missed_shots)))
+
 
         print("clipping")
         shot_set = shot_set.process(ClipProcessor(start_time, end_time_label='DownTime'), input_tags=all_tags, output_tags=all_tags,
