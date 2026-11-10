@@ -87,6 +87,7 @@ if __name__ == '__main__':
         print('labelling (classification)')
         shot_set = shot_set.process(ClassificationLabelProcessor(pre_time=pre_time, vague_time=vague_time), shot_filter=shot_filter,
                                     input_tags=['basic'], output_tags=['label_1'], save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/labelled'))
+        print('save as train, test, val')
 
         train_set = shot_set.remove_signal(tags=all_tags, keep=True, shot_filter=train_shots,
                                                     save_repo=train_file)
