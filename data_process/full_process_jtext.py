@@ -82,13 +82,13 @@ if __name__ == '__main__':
         shot_set = ShotSet(file_repo)
         print("re clipping")
         shot_set = shot_set.process(ClipProcessor(start_time+0.01), input_tags=all_tags, output_tags=all_tags).\
-            process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags])
+            process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags],save_repo=temp_file)
         print("stacking basic")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic']).remove_signal(tags['basic'])
         print("stacking axuv")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['axuv']], output_tags=['axuv']).remove_signal(tags['axuv'])
         print("stacking sxr")
-        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr']).remove_signal(tags['sxr'])
+        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr']).remove_signal(tags['sxr'],save_repo=temp_file)
         print("cut for undis phase of dis shot")
         train_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
                                      input_tags=['basic'],
