@@ -74,25 +74,24 @@ if __name__ == '__main__':
         # np.save('../../file_repo/shot_info/v1/train_shots.npy', train_shots)
         # np.save('../../file_repo/shot_info/v1/test_shots.npy', test_shots)
         # np.save('../../file_repo/shot_info/v1/val_shots.npy', val_shots)
-        #
-        # print("clipping")
-        # shot_set = shot_set.process(ClipProcessor(start_time, end_time_label='DownTime'), input_tags=all_tags, output_tags=all_tags,
-        #                             shot_filter=shot_filter, save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/trimmed'))
-        # shot_set = shot_set.remove_signal(all_tags, keep=True,shot_filter=shot_filter)
-        # print("trimming 1k")
-        # shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_1k], output_tags=[tags_1k])
-        # print('trimming 50k')
-        # shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_50k], output_tags=[tags_50k],save_repo=temp_file)
-        # print("slicing 50k")
-        # shot_set = shot_set.process(SliceProcessor(100, 0.5), input_tags=tags_50k, output_tags=tags_50k,
-        #                             save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced'))
 
-        temp_file_repo = FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced')
-        shot_set = ShotSet(temp_file_repo)
-        shot_set = shot_set.remove_signal(all_tags, keep=True, shot_filter=shot_filter,save_repo=temp_file)
-        # print("re clipping")
-        # shot_set = shot_set.process(ClipProcessor(start_time+0.01), input_tags=all_tags, output_tags=all_tags).\
-        #     process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags],save_repo=temp_file)
+        print("clipping")
+        shot_set = shot_set.process(ClipProcessor(start_time, end_time_label='DownTime'), input_tags=all_tags, output_tags=all_tags,
+                                    shot_filter=shot_filter, save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/trimmed'))
+        shot_set = shot_set.remove_signal(all_tags, keep=True,shot_filter=shot_filter)
+        print("trimming 1k")
+        shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_1k], output_tags=[tags_1k])
+        print('trimming 50k')
+        shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_50k], output_tags=[tags_50k])
+        print("slicing 50k")
+        shot_set = shot_set.process(SliceProcessor(100, 0.5), input_tags=tags_50k, output_tags=tags_50k,
+                                    save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced'))
+
+
+
+        print("re clipping")
+        shot_set = shot_set.process(ClipProcessor(start_time+0.01), input_tags=all_tags, output_tags=all_tags).\
+            process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags],save_repo=temp_file)
         print("stacking basic")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic'])
         print("stacking axuv")
