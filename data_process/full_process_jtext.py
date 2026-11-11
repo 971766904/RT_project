@@ -78,11 +78,11 @@ if __name__ == '__main__':
         # shot_set = shot_set.process(SliceProcessor(100, 0.5), input_tags=tags_50k, output_tags=tags_50k,
         #                             save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced'))
 
-        file_repo = FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced')
-        shot_set = ShotSet(file_repo)
+        temp_file_repo = FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced')
+        shot_set = ShotSet(temp_file_repo)
         print("re clipping")
         shot_set = shot_set.process(ClipProcessor(start_time+0.01), input_tags=all_tags, output_tags=all_tags).\
-            process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags])
+            process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags],save_repo=temp_file)
         print("stacking basic")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic'])
         print("stacking axuv")
