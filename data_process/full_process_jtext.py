@@ -24,6 +24,7 @@ if __name__ == '__main__':
     train_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/train')
     test_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/test')
     val_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/val')
+    temp_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/_temp')
 
     repo_dict = {
         'jtext': FileRepo(r'/mypool/DANN/data/xfm/jtext/raw')
@@ -72,7 +73,7 @@ if __name__ == '__main__':
         print("trimming 1k")
         shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_1k], output_tags=[tags_1k])
         print('trimming 50k')
-        shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_50k], output_tags=[tags_50k])
+        shot_set = shot_set.process(TrimProcessor(), input_tags=[tags_50k], output_tags=[tags_50k],save_repo=temp_file)
         print("slicing 50k")
         shot_set = shot_set.process(SliceProcessor(100, 0.5), input_tags=tags_50k, output_tags=tags_50k,
                                     save_repo=FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced'))
