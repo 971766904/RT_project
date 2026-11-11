@@ -48,11 +48,20 @@ if __name__ == '__main__':
         shot_filter = shot_set.shot_list
         #
         is_disrupt = []
+        valid_shots, excluded_shots = [], []
         for shot in shot_filter:
             dis_label = file_repo.read_labels(shot, ['IsDisrupt'])
+            tag_list = file_repo.get_tag_list(shot)
+            missing = [t for t in all_tags if t not in tag_list]
+            if missing:
+                excluded_shots.append((shot, missing))
+            else:
+                valid_shots.append(shot)
+
             is_disrupt.append(dis_label['IsDisrupt'])
         print('all shots:{}'.format(len(shot_filter)))
         print('disruption shots:{}'.format(sum(is_disrupt)))
+        print('valid shots:{}'.format(len(valid_shots)))
 
         train_shots, test_shots, train_label, _ = \
             train_test_split(shot_filter, is_disrupt, test_size=0.2,
