@@ -80,6 +80,7 @@ if __name__ == '__main__':
 
         temp_file_repo = FileRepo(f'/mypool/zy/j-text/file_repo/data_process/{device}/sliced')
         shot_set = ShotSet(temp_file_repo)
+        shot_set = shot_set.remove_signal(all_tags, keep=True, shot_filter=shot_filter,save_repo=temp_file)
         # print("re clipping")
         # shot_set = shot_set.process(ClipProcessor(start_time+0.01), input_tags=all_tags, output_tags=all_tags).\
         #     process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags],save_repo=temp_file)
