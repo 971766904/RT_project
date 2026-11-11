@@ -83,58 +83,58 @@ if __name__ == '__main__':
         print("re clipping")
         shot_set = shot_set.process(ClipProcessor(start_time+0.01), input_tags=all_tags, output_tags=all_tags).\
             process(TrimProcessor(), input_tags=[all_tags], output_tags=[all_tags],save_repo=temp_file)
-        print("stacking basic")
-        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic']).remove_signal(tags['basic'])
-        print("stacking axuv")
-        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['axuv']], output_tags=['axuv']).remove_signal(tags['axuv'])
-        print("stacking sxr")
-        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr']).remove_signal(tags['sxr'],save_repo=temp_file)
-        print("cut for undis phase of dis shot")
-        train_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
-                                     input_tags=['basic'],
-                                     output_tags=['basic'],
-                                     shot_filter=train_shots,
-                                     save_repo=train_file,
-                                     )
-        test_set = shot_set.process(CutProcessor(pre_time=20, is_test=True),
-                                     input_tags=['basic'],
-                                     output_tags=['basic'],
-                                     shot_filter=test_shots,
-                                     save_repo=test_file,
-                                     )
-        val_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
-                                     input_tags=['basic'],
-                                     output_tags=['basic'],
-                                     shot_filter=val_shots,
-                                     save_repo=val_file,
-                                     )
-        print('labelling (classification)')
-        train_set = train_set.process(processor=BinaryLabelProcessor(is_test=False),
-                                              input_tags=['basic'],
-                                              output_tags=['label'],
-                                              shot_filter=train_shots,
-                                              save_repo=train_file,
-                                              processes=10)
-        val_set = val_set.process(processor=BinaryLabelProcessor(is_test=False),
-                                          input_tags=['basic'],
-                                          output_tags=['label'],
-                                          shot_filter=val_shots,
-                                          save_repo=val_file,
-                                          processes=10)
-        test_set = test_set.process(processor=BinaryLabelProcessor(is_test=True),
-                                            input_tags=['basic'],
-                                            output_tags=['label'],
-                                            shot_filter=test_shots,
-                                            save_repo=test_file,
-                                            processes=10)
-
-        print('save as train, test, val')
-
-        train_set = train_set.remove_signal(tags=all_tags, keep=True, shot_filter=train_shots,
-                                                    save_repo=train_file)
-        test_set = test_set.remove_signal(tags=all_tags, keep=True, shot_filter=test_shots,
-                                           save_repo=test_file)
-        val_set = val_set.remove_signal(tags=all_tags, keep=True, shot_filter=val_shots,
-                                           save_repo=val_file)
+        # print("stacking basic")
+        # shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic']).remove_signal(tags['basic'])
+        # print("stacking axuv")
+        # shot_set = shot_set.process(StackProcessor(), input_tags=[tags['axuv']], output_tags=['axuv']).remove_signal(tags['axuv'])
+        # print("stacking sxr")
+        # shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr']).remove_signal(tags['sxr'],save_repo=temp_file)
+        # print("cut for undis phase of dis shot")
+        # train_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
+        #                              input_tags=['basic'],
+        #                              output_tags=['basic'],
+        #                              shot_filter=train_shots,
+        #                              save_repo=train_file,
+        #                              )
+        # test_set = shot_set.process(CutProcessor(pre_time=20, is_test=True),
+        #                              input_tags=['basic'],
+        #                              output_tags=['basic'],
+        #                              shot_filter=test_shots,
+        #                              save_repo=test_file,
+        #                              )
+        # val_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
+        #                              input_tags=['basic'],
+        #                              output_tags=['basic'],
+        #                              shot_filter=val_shots,
+        #                              save_repo=val_file,
+        #                              )
+        # print('labelling (classification)')
+        # train_set = train_set.process(processor=BinaryLabelProcessor(is_test=False),
+        #                                       input_tags=['basic'],
+        #                                       output_tags=['label'],
+        #                                       shot_filter=train_shots,
+        #                                       save_repo=train_file,
+        #                                       processes=10)
+        # val_set = val_set.process(processor=BinaryLabelProcessor(is_test=False),
+        #                                   input_tags=['basic'],
+        #                                   output_tags=['label'],
+        #                                   shot_filter=val_shots,
+        #                                   save_repo=val_file,
+        #                                   processes=10)
+        # test_set = test_set.process(processor=BinaryLabelProcessor(is_test=True),
+        #                                     input_tags=['basic'],
+        #                                     output_tags=['label'],
+        #                                     shot_filter=test_shots,
+        #                                     save_repo=test_file,
+        #                                     processes=10)
+        #
+        # print('save as train, test, val')
+        #
+        # train_set = train_set.remove_signal(tags=all_tags, keep=True, shot_filter=train_shots,
+        #                                             save_repo=train_file)
+        # test_set = test_set.remove_signal(tags=all_tags, keep=True, shot_filter=test_shots,
+        #                                    save_repo=test_file)
+        # val_set = val_set.remove_signal(tags=all_tags, keep=True, shot_filter=val_shots,
+        #                                    save_repo=val_file)
 
 
