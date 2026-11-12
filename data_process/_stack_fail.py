@@ -25,6 +25,8 @@ if __name__ == '__main__':
     val_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/val')
     temp_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/_temp')
     stack_file = FileRepo('/mypool/zy/j-text/file_repo/data_process/jtext/stack')
+    # temp_file = FileRepo('../../file_repo')
+    # stack_file = FileRepo('../../file_repo/stack')
 
     repo_dict = {
         'jtext': FileRepo(r'/mypool/DANN/data/xfm/jtext/raw')
@@ -65,11 +67,14 @@ if __name__ == '__main__':
         # val_shots = np.load('../../file_repo/shot_info/v1/val_shots.npy', allow_pickle=True).tolist()
 
         print("stacking basic")
-        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic'],save_repo=stack_file)
+        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic'],save_repo=stack_file,
+                                                  processes=10)
         print("stacking axuv")
-        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['axuv']], output_tags=['axuv'],save_repo=stack_file)
+        shot_set = shot_set.process(StackProcessor(), input_tags=[tags['axuv']], output_tags=['axuv'],save_repo=stack_file,
+                                                  processes=10)
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr'],
-                                    save_repo=stack_file)
+                                    save_repo=stack_file,
+                                                  processes=10)
         # print("cut for undis phase of dis shot")
         # train_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
         #                              input_tags=['basic'],
