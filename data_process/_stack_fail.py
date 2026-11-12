@@ -59,10 +59,10 @@ if __name__ == '__main__':
         # np.save('../../file_repo/shot_info/v1/test_shots.npy', test_shots)
         # np.save('../../file_repo/shot_info/v1/val_shots.npy', val_shots)
 
-        # load train test & val
-        train_shots = np.load('../../file_repo/shot_info/v1/train_shots.npy', allow_pickle=True).tolist()
-        test_shots = np.load('../../file_repo/shot_info/v1/test_shots.npy', allow_pickle=True).tolist()
-        val_shots = np.load('../../file_repo/shot_info/v1/val_shots.npy', allow_pickle=True).tolist()
+        # # load train test & val
+        # train_shots = np.load('../../file_repo/shot_info/v1/train_shots.npy', allow_pickle=True).tolist()
+        # test_shots = np.load('../../file_repo/shot_info/v1/test_shots.npy', allow_pickle=True).tolist()
+        # val_shots = np.load('../../file_repo/shot_info/v1/val_shots.npy', allow_pickle=True).tolist()
 
         print("stacking basic")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic'],save_repo=stack_file)
