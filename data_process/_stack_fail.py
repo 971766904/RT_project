@@ -43,6 +43,8 @@ if __name__ == '__main__':
         tags_50k = tags['50k']
         all_tags = tags_1k + tags_50k
         print('basic:{}'.format(tags['basic']))
+        print('basic:{}'.format(tags['sxr']))
+        print('basic:{}'.format(tags['axuv']))
 
 
 
