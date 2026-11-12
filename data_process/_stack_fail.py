@@ -42,6 +42,7 @@ if __name__ == '__main__':
         tags_1k = tags['basic'] + tags['sxr'] + tags['axuv']
         tags_50k = tags['50k']
         all_tags = tags_1k + tags_50k
+        print('basic:{}'.format(tags['basic']))
 
 
 
@@ -65,7 +66,7 @@ if __name__ == '__main__':
         print("stacking axuv")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['axuv']], output_tags=['axuv'])
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['sxr']], output_tags=['sxr'],
-                                    save_repo=temp_file)
+                                    save_repo=stack_file)
         # print("cut for undis phase of dis shot")
         # train_set = shot_set.process(CutProcessor(pre_time=20, is_test=False),
         #                              input_tags=['basic'],
