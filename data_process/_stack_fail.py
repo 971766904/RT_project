@@ -54,6 +54,7 @@ if __name__ == '__main__':
         # temp test
         shot_filter = shot_set.shot_list
         print('shots:{}'.format(len(shot_filter)))
+        print("first shots:", shot_set.shot_list[:10])
 
 
         # # save the shots
@@ -65,6 +66,20 @@ if __name__ == '__main__':
         # train_shots = np.load('../../file_repo/shot_info/v1/train_shots.npy', allow_pickle=True).tolist()
         # test_shots = np.load('../../file_repo/shot_info/v1/test_shots.npy', allow_pickle=True).tolist()
         # val_shots = np.load('../../file_repo/shot_info/v1/val_shots.npy', allow_pickle=True).tolist()
+
+        test_shot = shot_set.shot_list[0]
+
+        result = shot_set.process(
+            StackProcessor(),
+            input_tags=[tags['basic']],
+            output_tags=['basic'],
+            shot_filter=[test_shot],
+            save_repo=stack_file,
+            processes=1
+        )
+
+        print("result shots:", result.shot_list)
+        print("saved shots:", ShotSet(stack_file).shot_list)
 
         print("stacking basic")
         shot_set = shot_set.process(StackProcessor(), input_tags=[tags['basic']], output_tags=['basic'],save_repo=stack_file,
