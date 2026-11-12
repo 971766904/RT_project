@@ -51,6 +51,7 @@ if __name__ == '__main__':
         shot_set = ShotSet(temp_file)
         # temp test
         shot_filter = shot_set.shot_list
+        print('shots:{}'.format(len(shot_filter)))
 
 
         # # save the shots
